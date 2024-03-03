@@ -1,3 +1,4 @@
+import random
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -14,6 +15,15 @@ SHEET = GSPREAD_CLIENT.open('simple-battleships')
 
 results = SHEET.worksheet('results')
 
-data = results.get_all_values()
+class BattleshipGame:
+    """
+    A class representing a simple battleship game.
 
-print(data)
+    Attributes:
+        board_size (int): The size of the game board.
+        board (list): A 2D list representing the game board.
+        ships (dict): A dictionary containing ship names as keys and their coordinates as values.
+        guesses (list): A list to store the player's guesses.
+    """
+
+
