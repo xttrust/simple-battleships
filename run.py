@@ -103,16 +103,16 @@ class BattleshipGame:
                     self.player_hits += 1
                     self.board[row][col] = 'X'  # Mark the hit on the board
                     if self.player_hits == 4:
-                        return f"Hit! You sank all the CPU's battleships!\nCongratulations! You win!"
+                        return f"Hit! You sank all the battleships first!\nCongratulations! You win!"
                     else:
                         return f"Hit! You sank {ship_name}!"
                 else:
                     self.cpu_hits += 1
                     self.board[row][col] = 'O'  # Mark the hit on the board
                     if self.cpu_hits == 4:
-                        return "The CPU sunk all your battleships!\nYou lost!"
+                        return "The CPU sunk all the battleships!\nYou lost!"
                     else:
-                        return "The CPU hit your battleship!"
+                        return "The CPU hit the battleship!"
         self.board[row][col] = 'M'  # Mark the miss on the board
         return "Miss!"
 
