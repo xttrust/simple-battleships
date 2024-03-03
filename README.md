@@ -187,8 +187,7 @@ Users of Simple Battleships expect:
 All test cases passed successfully, indicating that the game functions as intended and meets the expected requirements.
 
 ## Bugs Identified
-
-No significant bugs were identified during testing. Minor issues were addressed during development to ensure smooth gameplay and user experience.
+While testing the game I encountered a bug on the deployed version on heroku where gspread was not found. I had to manualy add it to requirements.txt
 
 ## Conclusion
 
@@ -197,7 +196,7 @@ The testing process for **Simple Battleships** confirmed that all features opera
 
 ## Bugs
 
-While testing the game I encountered a bug on the deployed version on heroku where gspread was not found. I had to manualy add it to requirements.txt
+There are no bugs with the final version.
 
 ## Deployment
 
