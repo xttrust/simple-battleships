@@ -69,3 +69,22 @@ class BattleshipGame:
         for i, row in enumerate(self.board):
             print(i + 1, " ".join(row))
 
+
+    def check_guess(self, row, col):
+        """
+        Check if the player's guess hits a ship.
+
+        Args:
+            row (int): The row of the guess.
+            col (int): The column of the guess.
+
+        Returns:
+            str: A message indicating the result of the guess.
+        """
+        for ship_name, ship_coords in self.ships.items():
+            if (row, col) in ship_coords:
+                self.board[row][col] = 'X'  # Mark the hit on the board
+                return f"Hit! You sank {ship_name}!"
+        self.board[row][col] = 'M'  # Mark the miss on the board
+        return "Miss!"
+
