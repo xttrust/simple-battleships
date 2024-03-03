@@ -155,6 +155,21 @@ class BattleshipGame:
         self.cpu_hits = 0
     
 
+    def save_results(self):
+        """
+        Save the game results to the Google Sheets spreadsheet.
+        """
+        if self.player_name and self.datetime and self.outcome:
+            # Generate a unique game ID
+            self.game_id = random.randint(1000, 9999)
+
+            self.RESULTS_WORKSHEET.append_row(
+                [self.game_id, self.player_name, self.datetime, self.player_hits, self.cpu_hits, self.outcome])
+            print("\nGame results saved successfully.")
+        else:
+            print("\nUnable to save game results: missing information.")
+
+
     def play(self):
         """Play the battleship game."""
         print("Welcome to Simple Battleships!")
@@ -170,6 +185,7 @@ class BattleshipGame:
         self.datetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(f"Welcome to Simple Battleships, {self.player_name}!")
         self.print_board()
+
         while self.tries > 0:
             print(f"\nYou have {self.tries} tries left.")
             # Player's turn
@@ -181,6 +197,7 @@ class BattleshipGame:
             if "Congratulations" in result:
                 self.outcome = "Win"
                 break
+
             # CPU's turn
             print("\nCPU's turn:")
             guess_row, guess_col = self.cpu_guess()
@@ -190,19 +207,23 @@ class BattleshipGame:
             if "You lost" in result:
                 self.outcome = "Loss"
                 break
+
             self.tries -= 1
         else:
             print("\nGame over! You've run out of tries.")
             if self.player_hits > self.cpu_hits:
-                print("\nCongratulations! You win!")
+                print(f"\nCongratulations! You win! Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
                 self.outcome = "Win"
             elif self.player_hits < self.cpu_hits:
-                print("\nYou lost!")
+                print(f"\nYou lost! Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
                 self.outcome = "Loss"
             else:
-                print("\nIt's a tie!")
+                print("\nIt's a tie! Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
                 self.outcome = "Tie"
-        print(f"Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
+
+        # Save game results to Google Sheets
+        self.save_results()
+
         # Display a message to play again
         play_again = input("Do you want to play again? (yes/no): ")
         if play_again.lower() == "yes":
@@ -210,24 +231,7 @@ class BattleshipGame:
             self.play()
         else:
             print("Thank you for playing Simple Battleships!")
-        # Save game results to Google Sheets
-        self.save_results()
-
-
-    def save_results(self):
-        """
-        Save the game results to the Google Sheets spreadsheet.
-        """
-        if self.player_name and self.datetime and self.outcome:
-            # Generate a unique game ID
-            self.game_id = random.randint(1000, 9999)
-
-            self.RESULTS_WORKSHEET.append_row(
-                [self.game_id, self.player_name, self.datetime, self.player_hits, self.cpu_hits, self.outcome])
-            print("\nGame results saved successfully.")
-        else:
-            print("\nUnable to save game results: missing information.")
-
+        
 
 if __name__ == "__main__":
     game = BattleshipGame()
