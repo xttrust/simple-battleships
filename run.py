@@ -134,6 +134,7 @@ class BattleshipGame:
             except ValueError:
                 print("Please enter valid row (1-10) and column (A-J) values.")
 
+
     def cpu_guess(self):
         """
         Generate a random guess for the CPU and return the row and column indices.
@@ -171,7 +172,7 @@ class BattleshipGame:
 
 
     def play(self):
-       """Play the battleship game."""
+        """Play the battleship game."""
         print("Welcome to Simple Battleships!")
         print("\nSimple Battleships is a classic game where you try to sink the hidden ships before your opponent (CPU).")
         print("The game board consists of a grid with rows labeled 1 through 10 and columns labeled A through J.")
