@@ -1,32 +1,34 @@
-![Simple Battleships Logo](https://placehold.co/600x400?text=Simple+Battleships+Logo)
+# Simple Battleships
 
-Simple Battleships,
+Simple Battleships is a classic strategy game where players attempt to sink each other's fleet by guessing coordinates on a grid. This version of the game features a board generated using Python lists and incorporates a logic engine to allow the computer to fire back at the user.
 
-Simple Battleships is a command-line implementation of the classic Battleship game built using Python. This project aims to provide a fun and engaging gaming experience. 
+(Developer: Florin Pinta alias xttrust)
 
-## Reminders
+![Start screen](docs/simple_battleships_start.png)
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+[Live game](https://simple-battleships-7f5685aaac43.herokuapp.com/)
 
-## Creating the Heroku app
+## Table of Content
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
+1. [Introduction](#introduction)
+2. [Project Goals](#project-goals)
+    1. [User Goals](#user-goals)
+    2. [Site Owner Goals](#site-owner-goals)
+3. [User Experience](#user-experience)
+    1. [Target Audience](#target-audience)
+    2. [User Requirements and Expectations](#user-requirements-and-expectations)
+    3. [User Stories](#user-stories)
+4. [Technical Design](#technical-design)
+    1. [Flowchart](#flowchart)
+    2. [Data Modeling](#data-modeling)
+5. [Technologies Used](#technologies-used)
+    1. [Languages](#languages)
+    2. [Frameworks & Tools](#frameworks--tools)
+6. [Features](#features)
+7. [Testing](#testing)
+    1. [Tested Features](#tested-features)
+    2. [Test Cases](#test-cases)
+8. [Bugs](#bugs)
+9. [Deployment](#deployment)
+10. [Credits](#credits)
+11. [Acknowledgments](#acknowledgments)
