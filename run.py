@@ -171,15 +171,16 @@ class BattleshipGame:
 
 
     def play(self):
-        """Play the battleship game."""
+       """Play the battleship game."""
         print("Welcome to Simple Battleships!")
-        print("\nSimple Battleships is a classic game where you try to sink the hidden ships of your opponent.")
+        print("\nSimple Battleships is a classic game where you try to sink the hidden ships before your opponent (CPU).")
         print("The game board consists of a grid with rows labeled 1 through 10 and columns labeled A through J.")
         print("You will have 10 attempts to guess the location of all 4 ships on the board.")
+        print("The computer will also have 10 attempts to guess the location of the ships.")
         print("Each ship occupies a single cell on the board.")
-        print("If your guess hits a ship, it will be marked as 'X' on the board.")
-        print("If your guess misses, it will be marked as 'M' on the board.")
-        print("Your goal is to sink all the ships with as few guesses as possible.\n")
+        print("If your guess hits a ship, it will be marked as 'X' on the board. For CPU, it will be marked as 'O'.")
+        print("If your or CPU's guess misses, it will be marked as 'M' on the board.")
+        print("Your goal is to sink more ships than the CPU.\n")
 
         self.player_name = input("Enter your name: ")
         self.datetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
