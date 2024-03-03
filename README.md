@@ -1,8 +1,8 @@
 ![Simple Battleships Logo](https://placehold.co/600x400?text=Simple+Battleships+Logo)
 
-Welcome,
+Simple Battleships,
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+Simple Battleships is a command-line implementation of the classic Battleship game built using Python. This project aims to provide a fun and engaging gaming experience. 
 
 ## Reminders
 
