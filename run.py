@@ -41,7 +41,7 @@ class BattleshipGame:
         Initialize the BattleshipGame with a default board size of 10, 4 ships, and 10 tries.
         """
         self.board_size = board_size
-        self.board = [['O' for _ in range(board_size)] for _ in range(board_size)]
+        self.board = [['-' for _ in range(board_size)] for _ in range(board_size)]
         self.ships = {}
         self.generate_ships(num_ships)
         self.guesses = []

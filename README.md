@@ -125,26 +125,32 @@ cond2(no)->op2
 ### Welcome Message
 
 - Displays a welcome message to the user upon login.
+![Welcome Message](docs/welcome-message.png)
 
-### Username/Password Input
+### Username Input
 
-- Prompts the user to input their credentials for login.
+- Prompts the user to input their username.
+![Username Prompt](docs/username-prompt.png)
 
 ### Battleships Screen
 
-- Features an ASCII art warship and logo for the main screen.
+- Features an ASCII art warship and text for the main screen.
+![Main Game Screen](docs/game-screen.png)
 
 ### Game Board
 
 - Generates game boards for both the user and the computer.
+![Game Board](docs/game-board.png)
 
 ### Game Inputs
 
 - Allows the user to input their guesses and provides feedback on the result.
+![Game Inputs](docs/game-inputs.png)
 
 ### Game Over
 
 - Displays the end-of-game state to the user and allows them to retry or quit.
+![game-over](docs/game-over.png)
 
 ## Testing
 
