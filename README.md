@@ -87,7 +87,7 @@ Users of Simple Battleships expect:
 st=>start: Start
 e=>end: End
 op1=>operation: Initialize Game
-op2=>operation: User Inputs Guess
+op2=>operation: Player Inputs Guess
 op3=>operation: Check Guess
 cond=>condition: Guess Hits Ship?
 op4=>operation: Update Board
