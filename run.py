@@ -32,6 +32,8 @@ class BattleshipGame:
         datetime (str): Datetime when the game was played.
         game_id (int): Unique ID of the game.
         outcome (str): Outcome of the game (Win/Loss).
+        player_hits (int): Number of hits by the player.
+        cpu_hits (int): Number of hits by the CPU.
     """
     SHEET = SHEET  # Class variable to store the Google Sheets spreadsheet object
     RESULTS_WORKSHEET = results
@@ -50,6 +52,8 @@ class BattleshipGame:
         self.datetime = None
         self.game_id = None
         self.outcome = None
+        self.player_hits = 0
+        self.cpu_hits = 0
 
     def generate_ships(self, num_ships):
         """
@@ -81,23 +85,62 @@ class BattleshipGame:
         for i, row in enumerate(self.board):
             print(i + 1, " ".join(row))
 
-    def check_guess(self, row, col):
+    def check_guess(self, row, col, player):
         """
         Check if the player's guess hits a ship.
 
         Args:
             row (int): The row of the guess.
             col (int): The column of the guess.
+            player (str): The player making the guess ('player' or 'cpu').
 
         Returns:
             str: A message indicating the result of the guess.
         """
         for ship_name, ship_coords in self.ships.items():
             if (row, col) in ship_coords:
-                self.board[row][col] = 'X'  # Mark the hit on the board
-                return f"Hit! You sank {ship_name}!"
+                if player == 'player':
+                    self.player_hits += 1
+                    self.board[row][col] = 'X'  # Mark the hit on the board
+                    if self.player_hits == 4:
+                        return f"Hit! You sank all the CPU's battleships!\nCongratulations! You win!"
+                    else:
+                        return f"Hit! You sank {ship_name}!"
+                else:
+                    self.cpu_hits += 1
+                    self.board[row][col] = 'O'  # Mark the hit on the board
+                    if self.cpu_hits == 4:
+                        return "The CPU sunk all your battleships!\nYou lost!"
+                    else:
+                        return "The CPU hit your battleship!"
         self.board[row][col] = 'M'  # Mark the miss on the board
         return "Miss!"
+
+    def player_guess(self):
+        """
+        Prompt the player to make a guess and return the row and column indices.
+        """
+        while True:
+            try:
+                guess_row = int(input("Guess Row (1-10): ")) - 1
+                guess_col = string.ascii_uppercase.index(input("Guess Col (A-J): ").upper())
+                if not (0 <= guess_row < self.board_size and 0 <= guess_col < self.board_size):
+                    raise ValueError
+                if (guess_row, guess_col) in self.guesses:
+                    print("You guessed that one already.")
+                    continue
+                self.guesses.append((guess_row, guess_col))
+                return guess_row, guess_col
+            except ValueError:
+                print("Please enter valid row (1-10) and column (A-J) values.")
+
+    def cpu_guess(self):
+        """
+        Generate a random guess for the CPU and return the row and column indices.
+        """
+        guess_row = random.randint(0, self.board_size - 1)
+        guess_col = random.randint(0, self.board_size - 1)
+        return guess_row, guess_col
 
     def play(self):
         """Play the battleship game."""
@@ -105,8 +148,6 @@ class BattleshipGame:
         print("\nSimple Battleships is a classic game where you try to sink the hidden ships of your opponent.")
         print("The game board consists of a grid with rows labeled 1 through 10 and columns labeled A through J.")
         print("You will have 10 attempts to guess the location of all 4 ships on the board.")
-        print("First you need to guess the row from 1 to 10 and press ENTER.")
-        print("Second you need to guess the column from A,B,C,D,E,F,G,H,I,J")
         print("Each ship occupies a single cell on the board.")
         print("If your guess hits a ship, it will be marked as 'X' on the board.")
         print("If your guess misses, it will be marked as 'M' on the board.")
@@ -117,42 +158,41 @@ class BattleshipGame:
         print(f"Welcome to Simple Battleships, {self.player_name}!")
         self.print_board()
         while self.tries > 0:
-            print(f"You have {self.tries} tries left.")
-            try:
-                guess_row = int(input("Guess Row (1-10): ")) - 1
-                guess_col = string.ascii_uppercase.index(input("Guess Col (A-J): ").upper())
-            except ValueError:
-                print("Please enter valid row (1-10) and column (A-J) values.")
-                continue
-            if guess_row < 0 or guess_row >= self.board_size or guess_col < 0 or guess_col >= self.board_size:
-                print("Oops, that's not even in the ocean.")
-                continue
-            if (guess_row, guess_col) in self.guesses:
-                print("You guessed that one already.")
-                continue
-            self.guesses.append((guess_row, guess_col))
-            result = self.check_guess(guess_row, guess_col)
+            print(f"\nYou have {self.tries} tries left.")
+            # Player's turn
+            print("\nPlayer's turn:")
+            guess_row, guess_col = self.player_guess()
+            result = self.check_guess(guess_row, guess_col, 'player')
             print(result)
             self.print_board()
-            if all(all(cell == 'X' for cell in row) for row in self.board):
-                print("Congratulations! You sunk all the battleships!")
+            if "Congratulations" in result:
                 self.outcome = "Win"
+                break
+            # CPU's turn
+            print("\nCPU's turn:")
+            guess_row, guess_col = self.cpu_guess()
+            result = self.check_guess(guess_row, guess_col, 'cpu')
+            print(result)
+            self.print_board()
+            if "You lost" in result:
+                self.outcome = "Loss"
                 break
             self.tries -= 1
         else:
-            print("Game over! You've run out of tries.")
-            self.outcome = "Loss"
-
+            print("\nGame over! You've run out of tries.")
+            if self.player_hits > self.cpu_hits:
+                print("\nCongratulations! You win!")
+                self.outcome = "Win"
+            elif self.player_hits < self.cpu_hits:
+                print("\nYou lost!")
+                self.outcome = "Loss"
+            else:
+                print("\nIt's a tie!")
+                self.outcome = "Tie"
+        print(f"Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
         # Save game results to Google Sheets
         self.save_results()
 
-        # Ask the player if they want to play again
-        play_again = input("Do you want to play again? (yes/no): ").lower()
-        if play_again == "yes":
-            self.reset()
-            self.play()
-        else:
-            print("Thank you for playing Simple Battleships!")
 
     def save_results(self):
         """
@@ -163,23 +203,10 @@ class BattleshipGame:
             self.game_id = random.randint(1000, 9999)
 
             self.RESULTS_WORKSHEET.append_row(
-                [self.game_id, self.player_name, self.datetime, 10 - self.tries, self.outcome])
-            print("Game results saved successfully.")
+                [self.game_id, self.player_name, self.datetime, self.player_hits, self.cpu_hits, self.outcome])
+            print("\nGame results saved successfully.")
         else:
-            print("Unable to save game results: missing information.")
-
-    def reset(self):
-        """
-        Reset the game for a new play session.
-        """
-        self.board = [['O' for _ in range(self.board_size)] for _ in range(self.board_size)]
-        self.ships = {}
-        self.guesses = []
-        self.tries = 10
-        self.player_name = None
-        self.datetime = None
-        self.game_id = None
-        self.outcome = None
+            print("\nUnable to save game results: missing information.")
 
 
 if __name__ == "__main__":
