@@ -81,6 +81,25 @@ Users of Simple Battleships expect:
 
 ## Technical Design
 
+### Flowchart
+
+```flow
+st=>start: Start
+e=>end: End
+op1=>operation: Initialize Game
+op2=>operation: User Inputs Guess
+op3=>operation: Check Guess
+cond=>condition: Guess Hits Ship?
+op4=>operation: Update Board
+cond2=>condition: All Ships Sunk?
+op5=>operation: Display Victory Message
+
+st->op1->op2->op3->cond
+cond(yes)->op4->cond2
+cond(no)->op2
+cond2(yes)->op5->e
+cond2(no)->op2
+
 ### Data Modeling
 
 - User data is stored in a Google Spreadsheet
