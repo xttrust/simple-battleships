@@ -39,3 +39,33 @@ class BattleshipGame:
         self.guesses = []
         self.tries = max_tries
 
+    def generate_ships(self, num_ships):
+        """
+        Randomly generate ships and their coordinates on the game board.
+        """
+        ship_names = [f"Ship{i}" for i in range(1, num_ships + 1)]  # Names of the ships
+        for ship_name in ship_names:
+            while True:
+                # Randomly select a starting position
+                start_row = random.randint(0, self.board_size - 1)
+                start_col = random.randint(0, self.board_size - 1)
+
+                # Check if the ship fits in the selected position
+                end_row = start_row + 2  # 3 consecutive dots vertically
+                end_col = start_col + 2  # 3 consecutive dots horizontally
+                if end_row < self.board_size and end_col < self.board_size:
+                    ship_coords = [(start_row + i, start_col) for i in range(3)]  # Vertical ship
+                    if all(coord not in [coord for coords in self.ships.values() for coord in coords] for coord in ship_coords):
+                        # Add ship coordinates to the dictionary
+                        self.ships[ship_name] = ship_coords
+                        break
+
+
+    def print_board(self):
+        """
+        Print the current state of the game board.
+        """
+        print("  " + " ".join(string.ascii_uppercase[:self.board_size]))
+        for i, row in enumerate(self.board):
+            print(i + 1, " ".join(row))
+
