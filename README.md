@@ -125,3 +125,76 @@ Users of Simple Battleships expect:
 ### Game Over
 
 - Displays the end-of-game state to the user and allows them to retry or quit.
+
+## Testing
+
+### Tested Features
+
+- Username Creation
+- Game Initialization
+- User Input Handling
+- Computer Opponent Logic
+- Game Over Conditions
+- Replay Functionality
+
+
+## Test Cases
+
+### Username Creation
+
+| Test Case | Description | Expected Result | Actual Result |
+|-----------|-------------|-----------------|---------------|
+| New User   | Enter a new username | Username is accepted and stored | Passed |
+| Existing User | Enter an existing username | Username is recognized | Passed |
+
+### Game Initialization
+
+| Test Case | Description | Expected Result | Actual Result |
+|-----------|-------------|-----------------|---------------|
+| New Game  | Start a new game | Game board is generated | Passed |
+| Game Board | Check game board layout | Game board matches expected layout | Passed |
+
+### User Input Handling
+
+| Test Case | Description | Expected Result | Actual Result |
+|-----------|-------------|-----------------|---------------|
+| Valid Input | Enter valid coordinates | Coordinate is accepted and processed | Passed |
+| Invalid Input | Enter invalid coordinates | Error message displayed | Passed |
+
+### Computer Opponent Logic
+
+| Test Case | Description | Expected Result | Actual Result |
+|-----------|-------------|-----------------|---------------|
+| Random Guess | Computer makes a random guess | Guess is within game board boundaries | Passed |
+| Smart Guess | Computer makes an educated guess | Guess is based on previous hits | Passed |
+
+### Game Over Conditions
+
+| Test Case | Description | Expected Result | Actual Result |
+|-----------|-------------|-----------------|---------------|
+| Player Wins | Player destroys all computer ships | Victory message displayed | Passed |
+| Computer Wins | Computer destroys all player ships | Defeat message displayed | Passed |
+
+### Replay Functionality
+
+| Test Case | Description | Expected Result | Actual Result |
+|-----------|-------------|-----------------|---------------|
+| Replay Game | Choose to replay the game | New game is initialized | Passed |
+| Exit Game | Choose to exit the game | Game closes | Passed |
+
+## Test Results
+
+All test cases passed successfully, indicating that the game functions as intended and meets the expected requirements.
+
+## Bugs Identified
+
+No significant bugs were identified during testing. Minor issues were addressed during development to ensure smooth gameplay and user experience.
+
+## Conclusion
+
+The testing process for **Simple Battleships** confirmed that all features operate correctly and meet user expectations. The game provides an engaging and enjoyable experience for players.
+
+
+## Bugs
+
+While testing the game I encountered a bug on the deployed version on heroku where gspread was not found. I had to manualy add it to requirements.txt
