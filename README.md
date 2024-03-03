@@ -32,3 +32,24 @@ Simple Battleships is a classic strategy game where players attempt to sink each
 9. [Deployment](#deployment)
 10. [Credits](#credits)
 11. [Acknowledgments](#acknowledgments)
+
+## Introduction
+
+Welcome to Simple Battleships! This classic strategy game challenges players to sink their opponent's fleet by guessing the coordinates of their ships on a grid. Whether you're a seasoned player or new to the game, Simple Battleships offers an engaging and entertaining experience for all.
+
+## Project Goals 
+
+### User Goals
+
+The primary goal of Simple Battleships is to provide users with an enjoyable gaming experience. Key user goals include:
+
+- Engaging gameplay that challenges the mind.
+- Clear instructions and user interface.
+- Ability to play against a computer opponent.
+
+### Site Owner Goals
+
+As the developer of Simple Battleships, the main objectives are:
+
+- Create a polished and functional game.
+- Provide a seamless user experience.
