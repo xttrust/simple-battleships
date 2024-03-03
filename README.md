@@ -4,7 +4,7 @@ Simple Battleships is a classic strategy game where players attempt to sink each
 
 (Developer: Florin Pinta alias xttrust)
 
-![Start screen](docs/simple_battleships_start.png)
+![Start Screen](docs/welcome-message.png)
 
 [Live game](https://simple-battleships-7f5685aaac43.herokuapp.com/)
 
@@ -144,7 +144,7 @@ cond2(no)->op2
 
 ### Game Inputs
 
-- Allows the user to input their guesses and provides feedback on the result.
+- Allows the user to input their guesses and provides feedback on the result. \n
 ![Game Inputs](docs/game-inputs.png)
 
 ### Game Over
