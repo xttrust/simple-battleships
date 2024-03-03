@@ -144,6 +144,14 @@ class BattleshipGame:
         # Save game results to Google Sheets
         self.save_results()
 
+        # Ask the player if they want to play again
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        if play_again == "yes":
+            self.reset()
+            self.play()
+        else:
+            print("Thank you for playing Simple Battleships!")
+
     def save_results(self):
         """
         Save the game results to the Google Sheets spreadsheet.
@@ -157,6 +165,19 @@ class BattleshipGame:
             print("Game results saved successfully.")
         else:
             print("Unable to save game results: missing information.")
+
+    def reset(self):
+        """
+        Reset the game for a new play session.
+        """
+        self.board = [['O' for _ in range(self.board_size)] for _ in range(self.board_size)]
+        self.ships = {}
+        self.guesses = []
+        self.tries = 10
+        self.player_name = None
+        self.datetime = None
+        self.game_id = None
+        self.outcome = None
 
 
 if __name__ == "__main__":
