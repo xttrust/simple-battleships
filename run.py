@@ -220,7 +220,7 @@ class BattleshipGame:
                 print(f"\nYou lost! Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
                 self.outcome = "Loss"
             else:
-                print("\nIt's a tie! Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
+                print(f"\nIt's a tie! Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
                 self.outcome = "Tie"
 
         # Save game results to Google Sheets
