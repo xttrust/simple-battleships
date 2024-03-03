@@ -53,3 +53,75 @@ As the developer of Simple Battleships, the main objectives are:
 
 - Create a polished and functional game.
 - Provide a seamless user experience.
+
+## User Experience
+
+### Target Audience
+
+Simple Battleships targets a diverse audience, including:
+
+- Game enthusiasts of all ages.
+- Casual gamers looking for a fun pastime.
+- Individuals seeking a mental challenge.
+
+### User Requirements and Expectations
+
+Users of Simple Battleships expect:
+
+- Intuitive game controls.
+- Responsive feedback during gameplay.
+- Enjoyable and immersive gaming experience.
+
+### User Stories
+
+1. As a player, I want to easily understand the rules of the game.
+2. As a user, I want to be able to start a new game quickly.
+3. As a gamer, I want the game to provide a challenging experience.
+4. As a player, I want clear feedback on my progress and results.
+
+## Technical Design
+
+### Data Modeling
+
+- User data is stored in a Google Spreadsheet
+
+## Technologies Used
+
+### Languages
+
+- Python 3
+
+### Frameworks & Tools
+
+- Heroku
+- Google Drive (for hosting the spreadsheet)
+- Google Spreadsheet (for storing user data)
+- pycodestyle (for code validation)
+- GitHub
+- Gitpod
+
+## Features
+
+### Welcome Message
+
+- Displays a welcome message to the user upon login.
+
+### Username/Password Input
+
+- Prompts the user to input their credentials for login.
+
+### Battleships Screen
+
+- Features an ASCII art warship and logo for the main screen.
+
+### Game Board
+
+- Generates game boards for both the user and the computer.
+
+### Game Inputs
+
+- Allows the user to input their guesses and provides feedback on the result.
+
+### Game Over
+
+- Displays the end-of-game state to the user and allows them to retry or quit.
