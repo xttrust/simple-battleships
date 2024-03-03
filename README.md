@@ -1,4 +1,4 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+![Simple Battleships Logo](https://placehold.co/600x400?text=Simple+Battleships+Logo)
 
 Welcome,
 
