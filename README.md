@@ -1,6 +1,6 @@
 # Simple Battleships
 
-Simple Battleships is a classic strategy game where players attempt to sink each other's fleet by guessing coordinates on a grid. This version of the game features a board generated using Python lists and incorporates a logic engine to allow the computer to fire back at the user.
+Simple Battleships is a classic strategy game where players attempt to sink each the fleets by guessing coordinates on a grid. This version of the game features a board generated using Python lists and incorporates a logic engine to allow the user to play vs computer.
 
 (Developer: Florin Pinta alias xttrust)
 
@@ -121,9 +121,8 @@ cond2(no)->op2
 - Heroku
 - Google Drive (for hosting the spreadsheet)
 - Google Spreadsheet (for storing user data)
-- pycodestyle (for code validation)
+- CI Python Linter (for code validation)
 - GitHub
-- Gitpod
 
 ## Features
 
