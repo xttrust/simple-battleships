@@ -1,4 +1,5 @@
 import random
+import string  # import the 'string' module
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -92,9 +93,19 @@ class BattleshipGame:
     def play(self):
         """Play the battleship game."""
         print("Welcome to Simple Battleships!")
+        print("\nSimple Battleships is a classic game where you try to sink the hidden ships of your opponent.")
+        print("The game board consists of a grid with rows labeled 1 through 10 and columns labeled A through J.")
+        print("You will have 10 attempts to guess the location of the ships on the board.")
+        print("Each ship occupies a single cell on the board.")
+        print("If your guess hits a ship, it will be marked as 'X' on the board.")
+        print("If your guess misses, it will be marked as 'M' on the board.")
+        print("Your goal is to sink all the ships with as few guesses as possible.")
+
+        input("\nPress Enter to start the game...")
+
         self.print_board()
         while self.tries > 0:
-            print(f"You have {self.tries} tries left.")
+            print(f"\nYou have {self.tries} tries left.")
             try:
                 guess_row = int(input("Guess Row (1-10): ")) - 1
                 guess_col = string.ascii_uppercase.index(input("Guess Col (A-J): ").upper())
@@ -112,13 +123,12 @@ class BattleshipGame:
             print(result)
             self.print_board()
             if all(all(cell == 'X' for cell in row) for row in self.board):
-                print("Congratulations! You sunk all the battleships!")
+                print("\nCongratulations! You sunk all the battleships!")
                 break
             self.tries -= 1
         else:
-            print("Game over! You've run out of tries.")
+            print("\nGame over! You've run out of tries.")
 
 if __name__ == "__main__":
     game = BattleshipGame()
     game.play()
-
