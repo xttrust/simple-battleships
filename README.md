@@ -154,6 +154,11 @@ cond2(no)->op2
 
 ## Testing
 
+### Code Testing
+I have used CI Python Linter to test the code. The results are below.
+
+![Code Test](docs/ca-python-code-test.png)
+
 ### Tested Features
 
 - Username Creation
