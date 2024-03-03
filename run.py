@@ -1,5 +1,6 @@
 import random
-import string  # Add this line to import the 'string' module
+import string
+import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -7,7 +8,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -15,6 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('simple-battleships')
 
 results = SHEET.worksheet('results')
+
 
 class BattleshipGame:
     """
@@ -26,20 +28,28 @@ class BattleshipGame:
         ships (dict): A dictionary containing ship names as keys and their coordinates as values.
         guesses (list): A list to store the player's guesses.
         tries (int): Number of tries the player has.
+        player_name (str): Name of the player.
+        datetime (str): Datetime when the game was played.
+        game_id (int): Unique ID of the game.
+        outcome (str): Outcome of the game (Win/Loss).
     """
     SHEET = SHEET  # Class variable to store the Google Sheets spreadsheet object
+    RESULTS_WORKSHEET = results
 
     def __init__(self, board_size=10, num_ships=4, max_tries=10):
         """
         Initialize the BattleshipGame with a default board size of 10, 4 ships, and 10 tries.
         """
         self.board_size = board_size
-        self.board = [['-' for _ in range(board_size)] for _ in range(board_size)]
+        self.board = [['O' for _ in range(board_size)] for _ in range(board_size)]
         self.ships = {}
         self.generate_ships(num_ships)
         self.guesses = []
-        self.player_tries = max_tries
-        self.computer_tries = max_tries
+        self.tries = max_tries
+        self.player_name = None
+        self.datetime = None
+        self.game_id = None
+        self.outcome = None
 
     def generate_ships(self, num_ships):
         """
@@ -57,23 +67,19 @@ class BattleshipGame:
                 end_col = start_col + 2  # 3 consecutive dots horizontally
                 if end_row < self.board_size and end_col < self.board_size:
                     ship_coords = [(start_row + i, start_col) for i in range(3)]  # Vertical ship
-                    if all(coord not in [coord for coords in self.ships.values() for coord in coords] for coord in ship_coords):
+                    if all(coord not in [coord for coords in self.ships.values() for coord in coords] for coord in
+                           ship_coords):
                         # Add ship coordinates to the dictionary
                         self.ships[ship_name] = ship_coords
                         break
-
 
     def print_board(self):
         """
         Print the current state of the game board.
         """
-        print("   " + " ".join(string.ascii_uppercase[:self.board_size]))
+        print("  " + " ".join(string.ascii_uppercase[:self.board_size]))
         for i, row in enumerate(self.board):
-            row_num = str(i + 1)
-            # Add an additional space for single-digit row numbers
-            row_num = " " + row_num if len(row_num) == 1 else row_num
-            print(row_num, " ".join(row))
-
+            print(i + 1, " ".join(row))
 
     def check_guess(self, row, col):
         """
@@ -89,18 +95,10 @@ class BattleshipGame:
         for ship_name, ship_coords in self.ships.items():
             if (row, col) in ship_coords:
                 self.board[row][col] = 'X'  # Mark the hit on the board
-                return f"Hit! You sank {ship_name}!\n"
+                return f"Hit! You sank {ship_name}!"
         self.board[row][col] = 'M'  # Mark the miss on the board
-        return "Miss!\n"
+        return "Miss!"
 
-    def computer_guess(self):
-        """
-        Generate a random guess for the computer.
-        """
-        guess_row = random.randint(0, self.board_size - 1)
-        guess_col = random.randint(0, self.board_size - 1)
-        return guess_row, guess_col
-    
     def play(self):
         """Play the battleship game."""
         print("Welcome to Simple Battleships!")
@@ -110,18 +108,19 @@ class BattleshipGame:
         print("Each ship occupies a single cell on the board.")
         print("If your guess hits a ship, it will be marked as 'X' on the board.")
         print("If your guess misses, it will be marked as 'M' on the board.")
-        print("Your goal is to sink all the ships with as few guesses as possible.")
+        print("Your goal is to sink all the ships with as few guesses as possible.\n")
 
-        input("\nPress Enter to start the game.../n")
-
+        self.player_name = input("Enter your name: ")
+        self.datetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"Welcome to Simple Battleships, {self.player_name}!")
         self.print_board()
-        while self.player_tries > 0 and self.computer_tries > 0:
-            print(f"\nYou have {self.player_tries} tries left.")
+        while self.tries > 0:
+            print(f"You have {self.tries} tries left.")
             try:
                 guess_row = int(input("Guess Row (1-10): ")) - 1
                 guess_col = string.ascii_uppercase.index(input("Guess Col (A-J): ").upper())
             except ValueError:
-                print("Please enter valid 4row (1-10) and column (A-J) values.")
+                print("Please enter valid row (1-10) and column (A-J) values.")
                 continue
             if guess_row < 0 or guess_row >= self.board_size or guess_col < 0 or guess_col >= self.board_size:
                 print("Oops, that's not even in the ocean.")
@@ -134,23 +133,27 @@ class BattleshipGame:
             print(result)
             self.print_board()
             if all(all(cell == 'X' for cell in row) for row in self.board):
-                print("\nCongratulations! You sunk all the battleships!")
+                print("Congratulations! You sunk all the battleships!")
+                self.outcome = "Win"
                 break
-            self.player_tries -= 1
-            # Computer's turn
-            computer_guess_row, computer_guess_col = self.computer_guess()
-            computer_result = self.check_guess(computer_guess_row, computer_guess_col)
-            print(f"\nComputer guessed: {string.ascii_uppercase[computer_guess_col]}{computer_guess_row + 1} - {computer_result}")
-            self.print_board()
-            if all(all(cell == 'X' for cell in row) for row in self.board):
-                print("\nSorry, the computer sunk all your battleships. Better luck next time!")
-                break
-            self.computer_tries -= 1
+            self.tries -= 1
         else:
-            if self.player_tries <= 0:
-                print("\nYou've run out of tries. Game over!")
-            elif self.computer_tries <= 0:
-                print("\nThe computer has run out of tries. You win!")
+            print("Game over! You've run out of tries.")
+            self.outcome = "Loss"
+
+        # Save game results to Google Sheets
+        self.save_results()
+
+    def save_results(self):
+        """
+        Save the game results to the Google Sheets spreadsheet.
+        """
+        if self.player_name and self.datetime and self.game_id is not None and self.outcome:
+            self.RESULTS_WORKSHEET.append_row([self.game_id, self.player_name, self.datetime, self.tries, self.outcome])
+            print("Game results saved successfully.")
+        else:
+            print("Unable to save game results: missing information.")
+
 
 if __name__ == "__main__":
     game = BattleshipGame()
