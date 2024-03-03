@@ -148,8 +148,12 @@ class BattleshipGame:
         """
         Save the game results to the Google Sheets spreadsheet.
         """
-        if self.player_name and self.datetime and self.game_id is not None and self.outcome:
-            self.RESULTS_WORKSHEET.append_row([self.game_id, self.player_name, self.datetime, self.tries, self.outcome])
+        if self.player_name and self.datetime and self.outcome:
+            # Generate a unique game ID
+            self.game_id = random.randint(1000, 9999)
+
+            self.RESULTS_WORKSHEET.append_row(
+                [self.game_id, self.player_name, self.datetime, 10 - self.tries, self.outcome])
             print("Game results saved successfully.")
         else:
             print("Unable to save game results: missing information.")
