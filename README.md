@@ -198,3 +198,27 @@ The testing process for **Simple Battleships** confirmed that all features opera
 ## Bugs
 
 While testing the game I encountered a bug on the deployed version on heroku where gspread was not found. I had to manualy add it to requirements.txt
+
+## Deployment
+
+To deploy Simple Battleships on Heroku:
+
+1. Clone the repository to your local machine or https://app.codeanywhere.com/
+2. Set up your Heroku app and push the code to your Heroku remote.
+3. Configure any necessary environment variables.
+4. Deploy the app and ensure it's running correctly.
+
+## Credits
+
+### Code
+
+- Code Institute Python lessons.
+- Code Institute Love Sandwiches project.
+- Dylan Israel [YouTube](https://www.youtube.com/watch?v=7Ki_2gr0rsE&t=81s)
+
+## Acknowledgments
+
+Special thanks to:
+
+- My mentor for their guidance and support.
+- Code Institute's community for their valuable insights.
