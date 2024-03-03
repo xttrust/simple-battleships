@@ -142,6 +142,19 @@ class BattleshipGame:
         guess_col = random.randint(0, self.board_size - 1)
         return guess_row, guess_col
 
+
+    def reset_game(self):
+        """Reset the game state."""
+        self.board = [['-' for _ in range(self.board_size)] for _ in range(self.board_size)]
+        self.ships = {}
+        self.generate_ships(4)
+        self.guesses = []
+        self.tries = 10
+        self.outcome = None
+        self.player_hits = 0
+        self.cpu_hits = 0
+    
+
     def play(self):
         """Play the battleship game."""
         print("Welcome to Simple Battleships!")
@@ -190,6 +203,13 @@ class BattleshipGame:
                 print("\nIt's a tie!")
                 self.outcome = "Tie"
         print(f"Player Hits: {self.player_hits}, CPU Hits: {self.cpu_hits}")
+        # Display a message to play again
+        play_again = input("Do you want to play again? (yes/no): ")
+        if play_again.lower() == "yes":
+            self.reset_game()
+            self.play()
+        else:
+            print("Thank you for playing Simple Battleships!")
         # Save game results to Google Sheets
         self.save_results()
 
