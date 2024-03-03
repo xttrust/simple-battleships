@@ -105,6 +105,11 @@ cond2(no)->op2
 
 - User data is stored in a Google Spreadsheet
 
+![Google Spreadsheet Results](docs/saved-data-spreadsheet.png)
+
+[Link to view live Spreadsheet](https://docs.google.com/spreadsheets/d/1fHFdO2CiBrFZIbUFKshul5KY9DR2muhUDDFnYHV4PLo/edit#gid=1680754323)
+
+
 ## Technologies Used
 
 ### Languages
