@@ -83,7 +83,7 @@ Users of Simple Battleships expect:
 
 ### Flowchart
 
-```flow
+```
 st=>start: Start
 e=>end: End
 op1=>operation: Initialize Game
@@ -99,6 +99,7 @@ cond(yes)->op4->cond2
 cond(no)->op2
 cond2(yes)->op5->e
 cond2(no)->op2
+```
 
 ### Data Modeling
 
