@@ -88,3 +88,37 @@ class BattleshipGame:
         self.board[row][col] = 'M'  # Mark the miss on the board
         return "Miss!"
 
+    
+    def play(self):
+        """Play the battleship game."""
+        print("Welcome to Simple Battleships!")
+        self.print_board()
+        while self.tries > 0:
+            print(f"You have {self.tries} tries left.")
+            try:
+                guess_row = int(input("Guess Row (1-10): ")) - 1
+                guess_col = string.ascii_uppercase.index(input("Guess Col (A-J): ").upper())
+            except ValueError:
+                print("Please enter valid row (1-10) and column (A-J) values.")
+                continue
+            if guess_row < 0 or guess_row >= self.board_size or guess_col < 0 or guess_col >= self.board_size:
+                print("Oops, that's not even in the ocean.")
+                continue
+            if (guess_row, guess_col) in self.guesses:
+                print("You guessed that one already.")
+                continue
+            self.guesses.append((guess_row, guess_col))
+            result = self.check_guess(guess_row, guess_col)
+            print(result)
+            self.print_board()
+            if all(all(cell == 'X' for cell in row) for row in self.board):
+                print("Congratulations! You sunk all the battleships!")
+                break
+            self.tries -= 1
+        else:
+            print("Game over! You've run out of tries.")
+
+if __name__ == "__main__":
+    game = BattleshipGame()
+    game.play()
+
